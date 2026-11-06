@@ -1,4 +1,4 @@
 # About me
 
-Name: (your name)
-Faculty: (your faculty)
+Name: Alon
+Faculty: Chemical Engineering
