@@ -16,7 +16,7 @@ The format, with an example (copy the shape, not the words):
 
 ```text
 - WNN · <tool and model> · Used for: <what it did> · Checked by: <how you checked it; what you changed or rejected>
-- W02 · none · Used for: nothing; I wrote the proposal changes myself · Checked by: my partner's review on the pull request
+- W02 · none · Used for: nothing; I made the changes myself · Checked by: reading the files on GitHub after the merge
 ```
 
 ## My log

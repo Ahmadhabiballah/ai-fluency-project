@@ -1,14 +1,13 @@
-# CI: GitHub runs these checks on a clean machine every time you open or update
-# a pull request, and every time something lands on main.
+# CI: GitHub runs these checks on a clean machine every time something lands on main.
 #
 # Two checks:
-#   Proposal structure  - always: the proposal exists, keeps its four headings,
-#                         and has no merge-conflict markers.
-#   Proposal complete   - on pull requests only: no "<!-- ... -->" placeholder
-#                         is left in any section. It is skipped on main, so a
-#                         brand-new repository made from the template starts
-#                         green, and it is skipped in the course template itself.
+#   Proposal structure  - always: the proposal exists and keeps its four headings,
+#                         and neither it nor about-me.md has merge-conflict markers.
+#   Proposal complete   - on your fork only: no "<!-- ... -->" placeholder is left
+#                         in any section. It is skipped in the course's own copy,
+#                         whose proposal is the blank Week 1 template on purpose.
 #
+# GitHub switches workflows off on a new fork: enable them once in the Actions tab.
 # On your laptop, `uv run pytest` runs both.
 
 name: CI
@@ -39,9 +38,8 @@ jobs:
 
   complete:
     name: Proposal complete
-    # Pull requests only, and never in the template repository itself
-    # (its proposal is the blank Week 1 template on purpose).
-    if: ${{ github.event_name == 'pull_request' && !github.event.repository.is_template }}
+    # On a fork only: the course's own copy keeps the blank Week 1 template on purpose.
+    if: ${{ github.event.repository.fork }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

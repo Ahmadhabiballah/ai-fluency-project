@@ -1,4 +1,4 @@
-"""Checks on docs/project-proposal.md.
+"""Checks on docs/project-proposal.md (and on about-me.md for conflict markers).
 
 Two kinds of check live here:
 
@@ -6,9 +6,9 @@ Two kinds of check live here:
   of the Week 1 template, and no merge-conflict markers are left in it (the
   <<<<<<< and >>>>>>> lines, and the ======= line between the two sides).
 - Completeness (marked ``proposal_complete``): every section has been written,
-  so no ``<!-- ... -->`` placeholder is left. On GitHub these run on pull
-  requests only; on your laptop ``uv run pytest`` runs them too, so you can see
-  what is left before you push.
+  so no ``<!-- ... -->`` placeholder is left. On GitHub these run on your fork
+  only; on your laptop ``uv run pytest`` runs them too, so you can see what is
+  left before you push.
 
 Run them with:  uv run pytest
 """
@@ -21,6 +21,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 PROPOSAL = ROOT / "docs" / "project-proposal.md"
 PROPOSAL_NAME = "docs/project-proposal.md"
+ABOUT_ME = ROOT / "about-me.md"
 
 # The four sections of the Week 1 template. The patterns match the heading's
 # words, so the level (##, ###), the number and the case may change.
@@ -118,7 +119,24 @@ def test_no_leftover_conflict_divider():
         )
 
 
-# --- Completeness: on pull requests in CI, and always on your laptop --------
+def test_about_me_has_no_conflict_markers():
+    if not ABOUT_ME.is_file():
+        pytest.skip("about-me.md is not in this repository")
+    lines = ABOUT_ME.read_text(encoding="utf-8").splitlines()
+    found = [
+        f"line {i}: {line.strip()}"
+        for i, line in enumerate(lines, start=1)
+        if CONFLICT_MARKER.match(line) or CONFLICT_DIVIDER.match(line)
+    ]
+    if found:
+        pytest.fail(
+            f"about-me.md still has merge-conflict markers ({'; '.join(found)}). Keep "
+            "your own two lines, delete the <<<<<<<, ======= and >>>>>>> lines, then commit.",
+            pytrace=False,
+        )
+
+
+# --- Completeness: on your fork in CI, and always on your laptop --------
 
 
 @pytest.mark.proposal_complete
