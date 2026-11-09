@@ -1,4 +1,4 @@
 # About me
 
-Name: Alon
-Faculty: Chemical Engineering
+Name: Ahmad Habiballah
+Faculty: Information Systems Engineering

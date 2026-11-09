@@ -21,3 +21,5 @@ The format, with an example (copy the shape, not the words):
 
 ## My log
 
+- W02 · Claude (Opus 5.5) · Used for: explaining the lecture slides and course website, guiding the setup (WSL, Git, uv, VS Code, GitHub), suggesting project ideas, and drafting my proposal text · Checked by: running each command myself and checking the output; comparing the project ideas and choosing the inventory one; reading the proposal draft and keeping only what I understand
+
